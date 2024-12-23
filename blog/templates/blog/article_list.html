@@ -1,0 +1,52 @@
+{% load static %} 
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Полезные статьи</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+  <!-- Верхний блок -->
+  <div class="top-block" style="display: flex; justify-content: space-between;">
+    <h1>Полезные статьи</h1>
+    <div style="max-width: 300px;">
+      Описание — основной смысл. Используйте 1-2 предложения в 2-3 строчках...
+    </div>
+  </div>
+
+  <!-- Контейнер для карточек -->
+  <div id="articles-container" class="articles-container">
+    {% include 'blog/articles_list_partial.html' %}
+  </div>
+
+  {% if page_obj.has_next %}
+    <button id="load-more" data-next-page="2">Загрузить ещё</button>
+  {% endif %}
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+      const loadMoreBtn = document.getElementById('load-more');
+      if (loadMoreBtn) {
+          loadMoreBtn.addEventListener('click', function() {
+              const nextPage = loadMoreBtn.getAttribute('data-next-page');
+              fetch("{% url 'load_more_articles' %}?page=" + nextPage)
+                  .then(response => response.json())
+                  .then(data => {
+                      const container = document.getElementById('articles-container');
+                      container.insertAdjacentHTML('beforeend', data.articles_html);
+
+                      if (data.has_next) {
+                          loadMoreBtn.setAttribute('data-next-page', parseInt(nextPage) + 1);
+                      } else {
+                          loadMoreBtn.remove();
+                      }
+                  })
+                  .catch(err => console.error(err));
+          });
+      }
+  });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+{% for article in page_obj %}
+<div class="article-card">
+    <!-- Изображение или миниатюра -->
+    {% if article.image %}
+        <img src="{{ article.image.url }}" alt="{{ article.title }}">
+    {% endif %}
+    
+    <h3>
+      <a href="{% url 'article_detail' article_id=article.id %}">
+        {{ article.title }}
+      </a>
+    </h3>
+    <p>{{ article.short_description }}</p>
+</div>
+{% endfor %}

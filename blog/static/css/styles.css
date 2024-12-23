@@ -1,0 +1,22 @@
+.article-banner img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    /* Если хотите ограничить высоту:
+       max-height: 400px;
+       overflow: hidden;
+    */
+  }
+  
+  .article-content {
+    max-width: 800px;     /* ограничим ширину текста */
+    margin: 20px auto;    /* центрируем */
+    padding: 0 15px;
+    font-family: sans-serif;
+    line-height: 1.5;
+  }
+  
+  .article-content h1 {
+    margin-top: 0;
+  }

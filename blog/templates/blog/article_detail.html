@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{ article.title }}</title>
+    <!-- Подключим CSS -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+
+    <!-- Баннер (картинка на всю ширину) -->
+    <div class="article-banner">
+        {% if article.image %}
+            <img src="{{ article.image.url }}" alt="{{ article.title }}">
+        {% endif %}
+    </div>
+
+    <!-- Контент статьи -->
+    <div class="article-content">
+        <h1>{{ article.title }}</h1>
+        <p><strong>Дата:</strong> {{ article.created_at }}</p>
+        
+        <!-- Можно выводить короткое описание или сразу полный текст -->
+        <p>{{ article.full_text }}</p>
+    </div>
+
+</body>
+</html>
